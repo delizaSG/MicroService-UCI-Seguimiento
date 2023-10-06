@@ -44,18 +44,31 @@ curl -v  http://localhost:8083/seguimiento
 
 The expected result should looks like:
 {
+
         "id": "55af0ea155827301001a0cc9",
+	
         "comentarios": "Se aprobo el dictamen pero se rechazo en el UCI de la seccion 22 por falta de chuleta de documentos",
+	
         "perito": "Mtro. Pedro Diaz ",
+	
         "gobierno": "APF",
+	
         "siglas": "IMSS",
+	
         "dependencia": "Instituto Mexicano del Seguro Social",
+	
         "claveuc": "019GYR055",
+	
         "nombre_DE_LA_UC": "IMSS-Hospital de Especialidades Dr. Antonio Fraga Mouret",
+	
         "responsable": "Ernesto Alonso Ayala López",
+	
         "numero_EXPEDIENTE": "718952",
+	
         "titulo_EXPEDIENTE": "SERVICIO INTEGRAL DE HEMODINAMIA, ANGIOLOGIA Y NEUROLOGIA",
+	
         "plantilla_EXPEDIENTE": "01. Licitación Pública Nacional LAASSP"
+	
     }
  
 ### Reference Documentation
