@@ -3,13 +3,10 @@ EndPoint de Consulta de licitaciones de compranet de la Unidad de Control lntern
 
 ## Project
 Implementacion del microservicio para seguimiento de licitaciones publicas del IMSS
-Este servicio registrara comentarios de seguimiento.
 
--- Registra Comentario  :: Registra los comentarios de seguimiento que realice el perito
+Este servicio consulta comentarios de seguimiento.
 
--- Registra Perito :: Registra el nombre del abogado que lleva el seguimiento
-
--- Consulta seguimiento :: Muestra la informacion del seguimiento
+-- Consulta seguimiento :: Muestra la informacion del seguimiento que realice el perito que lleva el seguimiento
 
 Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
 
@@ -21,13 +18,10 @@ Consultation EndPoint for Compranet Bidding of the Internal Control Unit of IMSS
 
 ## Project
 Implementation of the microservice for public tender tracking at IMSS
-This service will record tracking comments.
 
--- Register Comment  :: Records the tracking comments made by the expert
+This service queries tracking comments
 
--- Register Expert :: Records the name of the lawyer handling the tracking
-
--- Track Progress Query :: Displays tracking information
+-- Tracking Query :: Displays the information of the tracking performed by the expert in charge of the tracking.
 
 The following scripts are provided for the MongoDB database/collections creation:
 * createBD.js
