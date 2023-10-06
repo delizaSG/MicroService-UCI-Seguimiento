@@ -6,7 +6,9 @@ Implementacion del microservicio para seguimiento de licitaciones publicas del I
 Este servicio registrara comentarios de seguimiento.
 
 -- Registra Comentario  :: Registra los comentarios de seguimiento que realice el perito
+
 -- Registra Perito :: Registra el nombre del abogado que lleva el seguimiento
+
 -- Consulta seguimiento :: Muestra la informacion del seguimiento
 
 Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
@@ -22,7 +24,9 @@ Implementation of the microservice for public tender tracking at IMSS
 This service will record tracking comments.
 
 -- Register Comment  :: Records the tracking comments made by the expert
+
 -- Register Expert :: Records the name of the lawyer handling the tracking
+
 -- Track Progress Query :: Displays tracking information
 
 The following scripts are provided for the MongoDB database/collections creation:
