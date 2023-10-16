@@ -1,0 +1,7 @@
+unam/diplomado/uci/uciservice/repository/SeguimientoRepository.class
+unam/diplomado/uci/uciservice/config/OpenApiConfig.class
+unam/diplomado/uci/uciservice/domain/Seguimiento.class
+unam/diplomado/uci/uciservice/api/SeguimientoController.class
+unam/diplomado/uci/uciservice/api/SeguimientoApi.class
+unam/diplomado/uci/uciservice/UciServiceApplication.class
+unam/diplomado/uci/uciservice/service/SeguimientoService.class
