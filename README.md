@@ -30,7 +30,8 @@ The following scripts are provided for the MongoDB database/collections creation
 
 ## Deploy
 
-`// TODO `
+Usar el Dockerfile para descargar imagen
+
 
 ## Test
 
