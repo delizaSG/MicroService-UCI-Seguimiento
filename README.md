@@ -52,6 +52,7 @@ The following scripts are provided for the MongoDB database/collections creation
 ## Deploy
 
 Usar el Dockerfile para descargar imagen
+
 Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
 
 * createBD.js
