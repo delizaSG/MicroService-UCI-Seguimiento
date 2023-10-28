@@ -8,11 +8,6 @@ Este servicio consulta comentarios de seguimiento.
 
 -- Consulta seguimiento :: Muestra la informacion del seguimiento que realice el perito que lleva el seguimiento
 
-Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
-
-* createBD.js
-* seguimiento_data.js
-
 
 API que llena datos en MongoDB, una interfaz de usuario para capturar comentarios y asociarlos a un seguimiento, un servicio que consume una API para actualizar una base de datos en MongoDB, y un servicio con un método que consulta la información:
 
@@ -57,6 +52,10 @@ The following scripts are provided for the MongoDB database/collections creation
 ## Deploy
 
 Usar el Dockerfile para descargar imagen
+Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
+
+* createBD.js
+* seguimiento_data.js
 
 
 ## Test
