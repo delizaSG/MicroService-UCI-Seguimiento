@@ -27,7 +27,7 @@ API que llena datos en MongoDB, una interfaz de usuario para capturar comentario
 
 3. El Servicio de Consulta permite a los usuarios buscar y recuperar los comentarios asociados a un seguimiento.
 
-<img src="javaV2.png" alt="seguimientoUCI microservicio java">
+<img src="javaV2.PNG" alt="seguimientoUCI microservicio java">
 
 
 # MicroService-UCI-Tracking
