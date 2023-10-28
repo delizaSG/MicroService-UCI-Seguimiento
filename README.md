@@ -13,7 +13,8 @@ Se proporcionan los siguientes scripts para la creación de la base de datos/col
 * createBD.js
 * seguimiento_data.js
 
-Para presentar la idea de un sistema que involucra una API que llena datos en MongoDB, una interfaz de usuario para capturar comentarios y asociarlos a un seguimiento, un servicio que consume una API para actualizar una base de datos en MongoDB, y un servicio con un método que consulta la información, puedes utilizar una serie de diagramas y esquemas que ilustren los diferentes componentes y sus interacciones. A continuación, te proporciono un ejemplo de cómo podrías representar esta idea en modo gráfico:
+
+API que llena datos en MongoDB, una interfaz de usuario para capturar comentarios y asociarlos a un seguimiento, un servicio que consume una API para actualizar una base de datos en MongoDB, y un servicio con un método que consulta la información:
 
 **Diagrama de Componentes:**
 
