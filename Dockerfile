@@ -10,11 +10,23 @@ COPY pom.xml /usr/src/app
 WORKDIR /usr/src/app
 
 # Variables de entorno
-ENV MONGO_HOSTNAME mongodb+srv://cluster0.o4bb8ho.mongodb.net/seguimientoucdb
-ENV MONGO_DB seguimientoucdb
-ENV MONGO_USER uc_user
-ENV MONGO_PWD uc_password
-ENV TOMCAT_PORT 8080
+# env
+#ENV MONGO_HOSTNAME=localhost
+#ENV MONGO_PORT=27017
+#ENV MONGO_AUTHDB=admin
+#ENV MONGO_DB=seguimientoucdb
+#ENV MONGO_USER=uc_owner
+#ENV MONGO_PWD=uc_password
+
+ENV MONGO_URI=mongodb+srv://uc_owner:uc_password@atlascluster.3xl2sha.mongodb.net/seguimientoucdb?retryWrites=true&w=majority
+ENV TOMCAT_PORT=8083
+EXPOSE 8083
+
+# Compila la aplicación
+RUN mvn clean package
+
+# Cambia a una imagen más ligera de Java para la ejecución
+FROM openjdk:17-oracle
 
 # Compila la aplicación
 RUN mvn clean install
@@ -25,9 +37,7 @@ FROM openjdk:11-jre-slim
 # Copia el archivo JAR generado en la etapa anterior
 COPY --from=build /usr/src/app/target/uci-service-0.0.1-SNAPSHOT.jar /app/uci-service.jar
 
-# Expone el puerto en el que la aplicación se ejecutará
-EXPOSE 8080
-
 # Comando para ejecutar la aplicación al iniciar el contenedor
-CMD ["java", "-jar", "/app/uci-service.jar"]
+#CMD ["java", "-jar", "/app/uci-service.jar"]
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "/app/uci-service.jar"]
 
