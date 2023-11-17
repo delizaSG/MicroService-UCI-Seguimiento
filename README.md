@@ -8,10 +8,27 @@ Este servicio consulta comentarios de seguimiento.
 
 -- Consulta seguimiento :: Muestra la informacion del seguimiento que realice el perito que lleva el seguimiento
 
-Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
 
-* createBD.js
-* seguimiento_data.js
+API que llena datos en MongoDB, una interfaz de usuario para capturar comentarios y asociarlos a un seguimiento, un servicio que consume una API para actualizar una base de datos en MongoDB, y un servicio con un método que consulta la información:
+
+**Componentes:**
+
+1. **API de Llenado de Datos en MongoDB**: Representa el componente externo que llena datos en la base de datos MongoDB.Por API REST que recopila datos y los almacena en la base de datos( https://api.datos.gob.mx/v1/compranet?_id=55af0dbd558273010015a0b4).
+
+2. **Interfaz de Usuario (UI)**: Muestra la interfaz de usuario donde los usuarios pueden capturar comentarios y asociarlos a un seguimiento. 
+
+3.  **Servicio de Consulta**: El componente de servicio de consulta permite a los usuarios buscar y recuperar información de la base de datos MongoDB Atlas.
+
+**Diagrama de Flujo de Datos:**
+
+1. Los datos fluyen desde la Interfaz de Usuario (UI) cuando un usuario solicita la consulta de un seguimiento.
+
+2. Estos datos se envían a través de una solicitud a la API seguimientoUCI.
+
+3. El Servicio de Consulta permite a los usuarios buscar y recuperar los comentarios asociados a un seguimiento.
+
+<img src="javaV2.PNG" alt="seguimientoUCI microservicio java">
+
 
 # MicroService-UCI-Tracking
 Consultation EndPoint for Compranet Bidding of the Internal Control Unit of IMSS
@@ -30,7 +47,13 @@ The following scripts are provided for the MongoDB database/collections creation
 
 ## Deploy
 
-`// TODO `
+Usar el Dockerfile para descargar imagen
+
+Se proporcionan los siguientes scripts para la creación de la base de datos/collections en MongoDB:
+
+* createBD.js
+* seguimiento_data.js
+
 
 ## Test
 

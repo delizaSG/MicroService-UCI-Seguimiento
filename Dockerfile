@@ -28,11 +28,14 @@ RUN mvn clean package
 # Cambia a una imagen más ligera de Java para la ejecución
 FROM openjdk:17-oracle
 
+# Compila la aplicación
+RUN mvn clean install
+
+# Cambia a una imagen más ligera de Java para la ejecución
+FROM openjdk:11-jre-slim
+
 # Copia el archivo JAR generado en la etapa anterior
 COPY --from=build /usr/src/app/target/uci-service-0.0.1-SNAPSHOT.jar /app/uci-service.jar
-
-# Expone el puerto en el que la aplicación se ejecutará
-EXPOSE 8083
 
 # Comando para ejecutar la aplicación al iniciar el contenedor
 #CMD ["java", "-jar", "/app/uci-service.jar"]
