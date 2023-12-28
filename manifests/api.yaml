@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: UCI Seguimientos Microservice Endpoints
+  description: Definicion de los Endpoints de Unidad de Control Interno para el Sistema
+    de seguimientos
+  contact:
+    name: UNAM
+    url: https://www.unam.mx
+    email: delizad01@gmail.com
+  version: v1
+servers:
+- url: http://localhost:8083
+  description: Generated server url
+paths:
+  /seguimiento:
+    get:
+      tags:
+      - seguimiento-controller
+      operationId: obtenerSeguimientos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+      - seguimiento-controller
+      operationId: crearSeguimiento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Seguimiento'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seguimiento'
+  /seguimiento/{id}:
+    get:
+      tags:
+      - seguimiento-controller
+      operationId: seguimientoPorId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seguimiento'
+components:
+  schemas:
+    Seguimiento:
+      type: object
+      properties:
+        id:
+          type: string
+        comentarios:
+          type: string
+        perito:
+          type: string
+        gobierno:
+          type: string
+        siglas:
+          type: string
+        dependencia:
+          type: string
+        claveuc:
+          type: string
+        nombre_DE_LA_UC:
+          type: string
+        responsable:
+          type: string
+        numero_EXPEDIENTE:
+          type: string
+        titulo_EXPEDIENTE:
+          type: string
+        plantilla_EXPEDIENTE:
+          type: string
