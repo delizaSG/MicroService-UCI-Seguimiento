@@ -1,0 +1,83 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  creationTimestamp: '2024-01-03T22:53:44Z'
+  generation: 2
+  managedFields:
+    - apiVersion: tekton.dev/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          .: {}
+          'f:description': {}
+          'f:params': {}
+          'f:tasks': {}
+          'f:workspaces': {}
+      manager: Mozilla
+      operation: Update
+      time: '2024-01-03T23:43:38Z'
+  name: ci-tekton
+  namespace: user5
+  resourceVersion: '154085290'
+  uid: 63552de2-1ef1-4f4b-b83b-a7e472511199
+spec:
+  description: |
+    this pipeline offers a typical CI/CD process, with a flow including:
+    - fetching a git repository as the source
+    - using buildah to build a Docker image by Dockerfile
+  params:
+    - description: The git repository URL to clone from.
+      name: repo-url
+      type: string
+    - description: The git tag to clone.
+      name: tag-name
+      type: string
+    - default: >-
+        gcr.io/cloud-builders/mvn@sha256:8f38a2667125a8d83f6e1997847fedb6a06f041c90e2244884153d85d95f869b
+      description: Image for compile pom
+      name: maven-image
+      type: string
+  tasks:
+    - name: git-clone-2
+      params:
+        - name: url
+          value: $(params.repo-url)
+      taskRef:
+        kind: Task
+        name: git-clone-2
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: list-directory
+      runAfter:
+        - git-clone-2
+      taskRef:
+        kind: Task
+        name: list-directory
+      workspaces:
+        - name: directory
+          workspace: workspace
+    - name: maven
+      params:
+        - name: GOALS
+          value:
+            - '-B'
+            - '-DskipTests'
+            - clean
+            - package
+        - name: MAVEN_IMAGE
+          value: $(params.maven-image)
+      runAfter:
+        - list-directory
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: workspace
+  workspaces:
+    - name: workspace
+    - name: maven-settings
+    - name: empty-dir
