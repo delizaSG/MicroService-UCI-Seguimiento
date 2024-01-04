@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: maven-settings
+  namespace: user5
+  uid: 5eaaf17e-5db8-4ea7-9f4a-fc8dba972da7
+  resourceVersion: '142020889'
+  creationTimestamp: '2023-12-28T23:02:52Z'
+  
