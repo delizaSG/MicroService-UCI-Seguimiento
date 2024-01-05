@@ -55,6 +55,47 @@ Se proporcionan los siguientes scripts para la creación de la base de datos/col
 * seguimiento_data.js
 
 
+### Creating the image
+
+This image is based on [arm64/jdk-17](https://hub.docker.com/layers/arm64v8/openjdk/17-ea-16-jdk/images/sha256-149f7dbd5287cb06efc8c5d0dfffeffcc36e8a9872dca7736ef8c333a3eca6a2?context=explore) for Mac OS. 
+
+Openjdk:17-oracle es una imagen de contenedor que utiliza OpenJDK versión 17 proporcionada por Oracle
+
+The complete specification of the image that contains the application is in the [Dockerfile](./Dockerfile)
+
+```
+### Run with Tekton
+#### Setting the environment
+Apply the configuration of the app
+```shell
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/resources/secret.yaml
+```
+Set the user and password of github and docker. There are not sample files to use your own users. 
+```shell
+oc apply -f github-user-pass.yaml 
+oc apply -f docker-user-pass.yaml
+```
+Link those secrets to the "pipeline" service account
+#### Set the tasks
+```shell
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-1-git-clone-2.yaml
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-2-lkist-dir.yaml
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-3-maven.yaml
+oc apply -f https://github.com/delizaSG/MicroService-UCI-Seguimiento/blob/main/manifests/tekton/tasks/tkrn-4-build.yaml
+```
+#### Optionally apply the taskruns
+```shell
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-1-git-clone-2.yaml
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-2-lkist-dir.yaml
+oc apply -f https://raw.githubusercontent.com/delizaSG/MicroService-UCI-Seguimiento/main/manifests/tekton/tasks/tkrn-3-maven.yaml
+oc apply -f https://github.com/delizaSG/MicroService-UCI-Seguimiento/blob/main/manifests/tekton/tasks/tkrn-4-build.yaml
+```
+#### Set and run the pipeline
+
+```
+### Trigger it from github
+
+
 ## Test
 
 Execute the next `curl` command to validate the deploy of the service. 
