@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: kubernetes-actions-
+spec:
+  taskRef:
+    name: kubernetes-actions
+  params:
+    - name: script
+      value: |
+        #!/bin/bash
+        DEPLOYMENT_NAME=uci-service
+        kubectl delete deployment $DEPLOYMENT_NAME
+        kubectl create deployment $DEPLOYMENT_NAME --replicas=2 --image=dodiliz/uci-service:v1
+        echo "----------"
+        CURRENT_ALREADY_PODS=$(kubectl get deployments $DEPLOYMENT_NAME | awk 'NR==2{print $4}')
+        MINIMAL_AVAILABLE_PODS=2
+        COUNTER=1
+        while [ $((CURRENT_ALREADY_PODS)) -lt $((MINIMAL_AVAILABLE_PODS)) ]
+          do
+            echo "waiting for pods"
+            CURRENT_ALREADY_PODS=$(kubectl get deployments $DEPLOYMENT_NAME | awk 'NR==2{print $4}')
+            COUNTER=$(( $COUNTER + 1 ))
+            if [ $COUNTER -gt 20 ]
+            then
+              echo "It looks something went wrong with the deployment $DEPLOYMENT_NAME. I can not wait more ..."
+              exit 1
+            else
+              sleep 3
+            fi
+        done;
+        kubectl get deployment $DEPLOYMENT_NAME -o wide
+  workspaces:
+    - name: kubeconfig-dir
+      emptyDir: {}
+    - name: manifest-dir
+      emptyDir: {}
+  serviceAccountName: tekton-pipeline
