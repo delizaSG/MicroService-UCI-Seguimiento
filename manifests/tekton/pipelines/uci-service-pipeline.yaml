@@ -1,0 +1,106 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: mascota-pipeline
+  serviceAccountName: pipeline
+  namespace: user15
+spec:
+  params:
+    - name: giturl
+      type: string
+      description: Github URL for the mascota service project
+      default: https://github.com/luis-cdmx/diplo-cloud-mascota-service
+    - name: maven_image
+      type: string
+      description: Pull maven image address
+      default: gcr.io/cloud-builders/mvn@sha256:8f38a2667125a8d83f6e1997847fedb6a06f041c90e2244884153d85d95f869b
+    - name: buildah_image
+      type: string
+      description: Pull buildah image address
+      default: docker.io/luisriveracdmx/mascota-rest-app:1.0
+    - name: mascota-rest-manifest
+      type: string
+      description: Github URL for the mascota service manifest
+      default: https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-rest.yaml
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+    - name: kubeconfig-dir
+    - name: manifest-dir
+  tasks:
+    - name: git-clone
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+      - name: url
+        value: $(params.giturl)
+      - name: subdirectory
+        value: ""
+      - name: deleteExisting
+        value: "true"
+    - name: list-directory
+      runAfter:
+        - git-clone
+      taskRef:
+        kind: Task
+        name: list-directory
+      workspaces:
+        - name: directory
+          workspace: shared-workspace
+    - name: maven
+      runAfter:
+        - list-directory
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+        - name: maven-settings
+          workspace: maven-settings
+      params:
+        - name: MAVEN_IMAGE
+          value: $(params.maven_image)
+        - name: GOALS
+          value:
+            - -B
+            - -DskipTests
+            - clean
+            - package
+    - name: buildah
+      runAfter:
+        - maven
+      taskRef:
+        kind: Task
+        name: buildah
+      params:
+        - name: IMAGE
+          value: $(params.buildah_image)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: STORAGE_DRIVER
+          value: 'vfs'
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: kubernetes-actions
+      runAfter:
+        - buildah
+      taskRef:
+        kind: Task
+        name: kubernetes-actions
+      params:
+        - name: script
+          value: |
+            kubectl apply -f $(params.mascota-rest-manifest)
+            echo "----------"
+            kubectl get deployment
+      workspaces:
+        - name: kubeconfig-dir
+          workspace: kubeconfig-dir
+        - name: manifest-dir
+          workspace: manifest-dir
