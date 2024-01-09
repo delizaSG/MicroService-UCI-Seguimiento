@@ -9,7 +9,7 @@ spec:
     - name: giturl
       type: string
       description: Github URL for the mascota service project
-      default: https://github.com/luis-cdmx/diplo-cloud-mascota-service
+      default: https://github.com/delizaSG/MicroService-UCI-Seguimiento.git
     - name: maven_image
       type: string
       description: Pull maven image address
@@ -17,11 +17,8 @@ spec:
     - name: buildah_image
       type: string
       description: Pull buildah image address
-      default: docker.io/luisriveracdmx/mascota-rest-app:1.0
-    - name: mascota-rest-manifest
-      type: string
-      description: Github URL for the mascota service manifest
-      default: https://raw.githubusercontent.com/luis-cdmx/diplo-cloud-mascota-service/main/resources/manifest/mascota-rest.yaml
+      default: docker.io/dodiliz/uci-service:v2
+   
   workspaces:
     - name: shared-workspace
     - name: maven-settings
@@ -96,7 +93,7 @@ spec:
       params:
         - name: script
           value: |
-            kubectl apply -f $(params.mascota-rest-manifest)
+           
             echo "----------"
             kubectl get deployment
       workspaces:
