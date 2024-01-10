@@ -7,8 +7,8 @@ spec:
     name: buildah
   params:
     - name: IMAGE
-      value: 'image-registry.openshift-image-registry.svc:5000/user5/uci-service:v2'
-      #value: 'docker.io/dodiliz/uci-service:v2'
+      #value: 'image-registry.openshift-image-registry.svc:5000/user5/uci-service:v2'
+      value: 'docker.io/dodiliz/uci-service:v2'
     - name: TLSVERIFY
       value: 'false'
     - name: STORAGE_DRIVER
