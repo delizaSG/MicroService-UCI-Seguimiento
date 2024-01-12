@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  # generateName: pipelinerun-cicd-deploy-
+  name: pipelinerun-cicd-deploy-2
+spec:
+  serviceAccountName: tekton-pipeline
+  pipelineRef:
+    name: ci-tekton-2
+  params:
+  - name: repo-url
+    value: https://github.com/delizaSG/MicroService-UCI-Seguimiento.git
+  - name: tag-name
+    value: main
+  - name: image-full-path-with-tag
+    value: docker.io/dodiliz/uci-service:v2
+  - name: maven-image
+    value: gcr.io/cloud-builders/mvn@sha256:8f38a2667125a8d83f6e1997847fedb6a06f041c90e2244884153d85d95f869b
+  workspaces:
+  - name: maven-settings
+    configmap:
+      name: maven-settings
+  - name: workspace
+    persistentvolumeclaim:
+      claimName: pvc-c9acb3d094
+  - name: empty-dir
+    emptyDir: {}
